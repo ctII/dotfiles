@@ -10,6 +10,7 @@ set smartcase
 set nocursorcolumn
 set pumheight=20
 set tabstop=4
+set shiftwidth=4
 set shortmess+=c
 set maxmempattern=400000
 set completeopt=menu,menuone,longest 
