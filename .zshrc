@@ -55,7 +55,7 @@ SAVEHIST=1000
 setopt autocd
 
 PROMPT='%F{green}%n%f@%F{magenta}%m%f%F{blue}%B%~%b%f%# '
-alias ls="ls --color=auto"
+alias ls="ls --color=auto -a"
 
 unset SSH_AGENT_PID
 if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
