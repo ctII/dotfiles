@@ -37,9 +37,10 @@ call plug#end()
 
 lua require('gitsigns').setup()
 
-" keybind to open
+" NERDTREE
 
 nnoremap <C-n> :NERDTree<CR>
+let NERDTreeQuitOnOpen=1
 
 " vim-go
 
