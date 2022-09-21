@@ -1,3 +1,3 @@
 # Dotfile
 
-all my dotfiles and junk
+all my dotfiles and some likely used scripts
