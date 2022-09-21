@@ -40,7 +40,6 @@ if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
 	add-zle-hook-widget -Uz zle-line-finish zle_application_mode_stop
 fi
 
-
 zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' menu select=0
@@ -57,6 +56,8 @@ setopt autocd
 PROMPT='%F{green}%n%f@%F{magenta}%m%f%F{blue}%B%~%b%f%# '
 alias ls="ls --color=auto -a"
 
+
+# setup gpg for handling ssh authentication
 unset SSH_AGENT_PID
 if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
   export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
@@ -64,14 +65,8 @@ fi
 export GPG_TTY=$(tty)
 gpg-connect-agent updatestartuptty /bye >/dev/null
 
-export EDITOR=/usr/bin/nvim
-export PATH=$PATH:/home/clayton/go/bin
-
-alias relabel="sudo restorecon -rFv /"
-alias samba="sh ~/Auth/samba.sh"
-alias unsamba="sh ~/Auth/unsamba.sh"
-alias youtube-dl="yt-dlp"
-alias vim="nvim"
+export EDITOR=/usr/bin/vim
+export PATH=$PATH:$HOME/go/bin
 
 # setting for gup command (auto generate)
 fpath=(~/.zsh/completion $fpath)
