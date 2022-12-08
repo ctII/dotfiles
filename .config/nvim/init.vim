@@ -30,9 +30,12 @@ syntax enable
 
 " install
 call plug#begin()
-Plug 'preservim/nerdtree'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'lewis6991/gitsigns.nvim'
+Plug 'preservim/nerdtree' " Tree file listing
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' } " Go (Golang) integration
+Plug 'rust-lang/rust.vim' " rust syntax and cargo highlighting/commands
+Plug 'dense-analysis/ale' " LSP integration
+Plug 'lewis6991/gitsigns.nvim' " git integration
+Plug 'junegunn/fzf.vim' " file searching
 call plug#end()
 
 lua require('gitsigns').setup()
@@ -41,6 +44,15 @@ lua require('gitsigns').setup()
 
 nnoremap <C-n> :NERDTree<CR>
 let NERDTreeQuitOnOpen=1
+
+" rust
+let g:rust_shell_command_runner = 'noautocmd new | terminal'
+autocmd FileType rs nmap <leader>r  :terminal cargo run<CR>
+set completeopt=menu,menuone,preview,noselect,noinsert
+let g:ale_completion_enabled = 1
+let g:ale_linters = {
+\  'rust': ['analyzer'],
+\}
 
 " vim-go
 
