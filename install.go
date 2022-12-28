@@ -10,8 +10,6 @@ import (
 	"path/filepath"
 )
 
-var ignoreFiles = [...]string{".git", "README.md", "LICENSE", "go.mod", "go.sum", "install.go"}
-
 func main() {
 	log.SetFlags(0)
 
@@ -32,6 +30,8 @@ func main() {
 	if err != nil {
 		log.Fatalf("could not get binary path (%v)\n", err)
 	}
+
+	ignoreFiles := [...]string{".git", "README.md", "LICENSE", "go.mod", "go.sum", "install.go"}
 
 	var (
 		relativePath string
@@ -70,28 +70,46 @@ func main() {
 		updateList = append(updateList, relativePath)
 		return nil
 	})
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	homeDir, err := os.UserHomeDir()
 	if err != nil {
-		log.Fatalf("could not get current users home dir due to error (%w)\n", err)
+		log.Fatalf("could not get current users home dir due to error (%v)\n", err)
 	}
 
 	for _, e := range updateList {
+		currentDirLink := filepath.Join(currentDir, e)
+		homeLink := filepath.Join(homeDir, e)
+
 		if *dryrun {
-			log.Printf("would have symlinked (%v) -> (%v)\n", filepath.Join(currentDir, e), filepath.Join(homeDir, e))
-			log.Printf("would have deleted (%v)\n", filepath.Join(homeDir, e))
+			log.Printf("would have symlinked (%v) -> (%v)\n", currentDirLink, homeLink)
+			log.Printf("would have deleted (%v)\n", homeLink)
 			continue
 		}
-		err = os.Remove(filepath.Join(homeDir, e))
+
+		err = os.Remove(homeLink)
 		if err != nil && !errors.Is(err, os.ErrNotExist) {
-			log.Fatalf("could not remove file (%v) due to error (%v)\n", filepath.Join(homeDir, e), err)
+			log.Fatalf("could not remove file (%v) due to error (%v)\n", homeLink, err)
 		}
-		err = os.Symlink(filepath.Join(currentDir, e), filepath.Join(homeDir, e))
+
+		err = os.MkdirAll(filepath.Dir(homeLink), 0o666)
 		if err != nil {
-			log.Fatalf("could not symlink (%v) -> (%v)\n error (%v)\n", filepath.Join(currentDir, e), filepath.Join(homeDir, e), err)
+			log.Fatalf("could not mkdir -p (%v) error (%v)", filepath.Dir(homeLink), err)
 		}
+
 		if *verbose {
-			log.Printf("symlinked (%v) -> (%v)\n", filepath.Join(currentDir, e), filepath.Join(homeDir, e))
+			log.Printf("did equivalent of mkdir -p %v", filepath.Dir(homeLink))
+		}
+
+		err = os.Symlink(currentDirLink, homeLink)
+		if err != nil {
+			log.Fatalf("could not symlink (%v) -> (%v)\n error (%v)\n", currentDirLink, homeLink, err)
+		}
+
+		if *verbose {
+			log.Printf("symlinked (%v) -> (%v)\n", currentDirLink, homeLink)
 		}
 	}
 }
