@@ -49,9 +49,12 @@ autoload -Uz compinit
 compinit
 
 HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=100000
+SAVEHIST=100000
 setopt autocd
+setopt appendhistory
+setopt sharehistory
+setopt incappendhistory
 
 PROMPT='%F{green}%n%f@%F{magenta}%m%f%F{blue}%B%~%b%f%# '
 alias ls="ls --color=auto -a"
