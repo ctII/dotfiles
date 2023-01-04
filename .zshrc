@@ -55,10 +55,10 @@ setopt autocd
 setopt appendhistory
 setopt sharehistory
 setopt incappendhistory
+setopt EXTENDED_HISTORY
 
 PROMPT='%F{green}%n%f@%F{magenta}%m%f%F{blue}%B%~%b%f%# '
 alias ls="ls --color=auto -a"
-
 
 # setup gpg for handling ssh authentication
 unset SSH_AGENT_PID
@@ -68,9 +68,16 @@ fi
 export GPG_TTY=$(tty)
 gpg-connect-agent updatestartuptty /bye >/dev/null
 
-export EDITOR=/usr/bin/vim
-export PATH=$PATH:$HOME/go/bin
+# make default editor nvim or vim based on which is avaliable
+if command -v nvim &> /dev/null {
+then
+	export EDITOR=$(which nvim)
+else
+	export EDITOR=$(which vim)
+fi
 
-# setting for gup command (auto generate)
-fpath=(~/.zsh/completion $fpath)
-autoload -Uz compinit && compinit -i
+# make history print everything, and timestamp them
+alias history="history -i 0"
+
+# add go binaries to PATH
+export PATH=$PATH:$HOME/go/bin
