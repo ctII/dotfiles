@@ -53,6 +53,7 @@ let g:ale_completion_enabled = 1
 let g:ale_linters = {
 \  'rust': ['analyzer'],
 \  'elixir': ["credo"],
+\  'python': ["flake8"],
 \}
 
 " vim-go
