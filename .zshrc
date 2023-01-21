@@ -72,6 +72,7 @@ gpg-connect-agent updatestartuptty /bye >/dev/null
 if command -v nvim &> /dev/null {
 then
 	export EDITOR=$(which nvim)
+	alias vim="nvim"
 else
 	export EDITOR=$(which vim)
 fi
