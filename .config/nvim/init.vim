@@ -52,6 +52,7 @@ set completeopt=menu,menuone,preview,noselect,noinsert
 let g:ale_completion_enabled = 1
 let g:ale_linters = {
 \  'rust': ['analyzer'],
+\  'elixir': ["credo"],
 \}
 
 " vim-go

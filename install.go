@@ -94,7 +94,7 @@ func main() {
 			log.Fatalf("could not remove file (%v) due to error (%v)\n", homeLink, err)
 		}
 
-		err = os.MkdirAll(filepath.Dir(homeLink), 0o666)
+		err = os.MkdirAll(filepath.Dir(homeLink), 0o700)
 		if err != nil {
 			log.Fatalf("could not mkdir -p (%v) error (%v)", filepath.Dir(homeLink), err)
 		}
