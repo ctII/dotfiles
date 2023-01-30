@@ -54,7 +54,11 @@ let g:ale_linters = {
 \  'rust': ['analyzer'],
 \  'elixir': ["credo"],
 \  'python': ["flake8"],
+\  'protoc': ["protolint"],
 \}
+
+" protoc
+autocmd FileType proto set expandtab shiftwidth=2 tabstop=2
 
 " vim-go
 
