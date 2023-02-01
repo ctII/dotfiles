@@ -81,4 +81,4 @@ fi
 alias history="history -i 0"
 
 # add go binaries to PATH
-export PATH=$PATH:$HOME/go/bin
+export PATH=$HOME/go/bin:$PATH
