@@ -28,6 +28,9 @@ set undodir=/tmp/vim/undofile
 
 syntax enable
 
+" enable markdown fenced code highlighting
+let g:markdown_fenced_languages = ['go', 'python']
+
 " install
 call plug#begin()
 Plug 'preservim/nerdtree' " Tree file listing
