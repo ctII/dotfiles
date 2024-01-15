@@ -82,3 +82,6 @@ alias history="history -i 0"
 
 # add go binaries to PATH
 export PATH=$HOME/go/bin:$PATH
+
+# add flutter binaries to PATH
+export PATH=$PATH:$HOME/flutter/bin
