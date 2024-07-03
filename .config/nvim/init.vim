@@ -20,6 +20,7 @@ set autoread
 set autoindent
 set incsearch
 set hlsearch
+colorscheme vim
 
 autocmd TermOpen * setlocal nonumber norelativenumber
 
