@@ -85,3 +85,7 @@ export PATH=$HOME/go/bin:$PATH
 
 # add flutter binaries to PATH
 export PATH=$PATH:$HOME/flutter/bin
+
+# add alt-left and alt-right block movement
+bindkey '^[[1;5D' backward-word
+bindkey '^[[1;5C' forward-word
