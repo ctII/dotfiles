@@ -89,3 +89,8 @@ export PATH=$PATH:$HOME/flutter/bin
 # add alt-left and alt-right block movement
 bindkey '^[[1;5D' backward-word
 bindkey '^[[1;5C' forward-word
+
+# disable zsh handling command-not-found by spending 2000ms talking to packagekit
+command_not_found_handler() {
+	echo "zsh: command not found: $@"
+}
