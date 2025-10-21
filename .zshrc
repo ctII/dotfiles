@@ -94,3 +94,7 @@ bindkey '^[[1;5C' forward-word
 command_not_found_handler() {
 	echo "zsh: command not found: $@"
 }
+
+# add using ctrl+r for reverse search and ctrl+s for forward search
+bindkey -M isearch '^R' history-incremental-search-backward
+bindkey -M isearch '^S' history-incremental-search-forward
