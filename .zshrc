@@ -48,25 +48,39 @@ zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p
 autoload -Uz compinit
 compinit
 
+# BEGIN CUSTOM CONFIGURATION
+
+# configure history file, and share history across pttys
 HISTFILE=~/.histfile
 HISTSIZE=100000
 SAVEHIST=100000
-setopt autocd
 setopt appendhistory
 setopt sharehistory
 setopt incappendhistory
 setopt EXTENDED_HISTORY
 
+
+# enable zsh to cd to a directory by its path without prefixing with "cd"
+setopt autocd
+
+
+# add prefix to zsh prompt
 PROMPT='%F{green}%n%f@%F{magenta}%m%f%F{blue}%B%~%b%f%# '
+
+
+# default ls to showing color and showing files starting with a "."
 alias ls="ls --color=auto -a"
 
+
 # setup gpg for handling ssh authentication
+# TODO: only if it exists
 unset SSH_AGENT_PID
 if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
   export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 fi
 export GPG_TTY=$(tty)
 gpg-connect-agent updatestartuptty /bye >/dev/null
+
 
 # make default editor nvim or vim based on which is avaliable
 if command -v nvim &> /dev/null {
@@ -80,10 +94,12 @@ fi
 # make history print everything, and timestamp them
 alias history="history -i 0"
 
-# add go binaries to PATH
+# add go binaries to PATH, if they exist
+# TODO: only if it exists
 export PATH=$HOME/go/bin:$PATH
 
-# add flutter binaries to PATH
+# add flutter binaries to PATH, if they exist
+# TODO: only if it exists
 export PATH=$PATH:$HOME/flutter/bin
 
 # add alt-left and alt-right block movement
@@ -96,5 +112,5 @@ command_not_found_handler() {
 }
 
 # add using ctrl+r for reverse search and ctrl+s for forward search
-bindkey -M isearch '^R' history-incremental-search-backward
-bindkey -M isearch '^S' history-incremental-search-forward
+bindkey '^R' history-incremental-search-backward
+bindkey '^S' history-incremental-search-forward
