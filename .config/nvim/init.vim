@@ -32,7 +32,10 @@ syntax enable
 " enable markdown fenced code highlighting
 let g:markdown_fenced_languages = ['go', 'python']
 
-" install
+" ENABLE PROGRAMMING CONFIGURATION ONLY IF IT HAS BEEN EXPLICITLY ENABLED
+" AND POTENTIALLY GIVE ABILITY TO ONE CLICK INSTALL VIM-PLUG
+
+" TODO: maybe prompt for plug-vim install
 call plug#begin()
 Plug 'preservim/nerdtree' " Tree file listing
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' } " Go (Golang) integration
@@ -78,7 +81,7 @@ autocmd FileType go nmap <leader>t  <Plug>(go-test)
 " open auto compelete on .
 "au filetype go inoremap <buffer> . .<C-x><C-o>
 
-" setup syntax highlighting
+" setup vim-go options
 let g:go_doc_popup_window = 1
 let g:go_updatetime=50
 let g:go_auto_type_info = 1
